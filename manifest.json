@@ -11,19 +11,12 @@
 	},
 	"default_locale": "en",
 	"background": {
-		"page": "src/bg/background.html",
-		"persistent": true
+		"scripts": ["src/bg/background.js"]
 	},
 	"browser_action": {
 		"default_icon": "icons/icon19.png",
 		"default_title": "browser action demo",
 		"default_popup": "src/browser_action/browser_action.html"
 	},
-	"permissions": ["cookies", "history"],
-	"content_scripts": [
-		{
-			"matches": ["https://www.google.com/*"],
-			"js": ["src/inject/inject.js"]
-		}
-	]
+	"permissions": ["cookies", "history", "tabs", "https://*/*"]
 }
