@@ -1,85 +1,85 @@
 .mainPopup {
-	padding: 10px;
-	width: 400px;
-	font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI",
-		Roboto, Ubuntu;
+  padding: 10px;
+  width: 400px;
+  font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Ubuntu;
 
-	border-radius: 10px;
+  border-radius: 10px;
 
-	.popupHeader {
-		h1 {
-			font-size: 2em;
-		}
-		.rightAlign {
-			text-align: right;
-		}
-	}
+  .popupHeader {
+    h1 {
+      font-size: 2em;
+    }
+    .rightAlign {
+      text-align: right;
+    }
+  }
 
-	.feed {
-		.feedItem {
-			border-radius: 5px;
-			border-style: solid;
-			border: solid 0.1em;
-			border-color: rgba($color: #000000, $alpha: 0.25);
-			overflow: hidden;
+  .feed {
+    .feedItem {
+      border-radius: 5px;
+      border-style: solid;
+      border: solid 0.1em;
+      border-color: rgba($color: #000000, $alpha: 0.25);
+      overflow: hidden;
 
-			display: flex;
-			flex-direction: row;
-			flex-wrap: nowrap;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
 
-			margin: 10px;
+      margin: 10px;
 
-			-webkit-box-shadow: 2px 2px 5px -2px rgba(0, 0, 0, 0.2);
-			-moz-box-shadow: 2px 2px 5px -2px rgba(0, 0, 0, 0.2);
-			box-shadow: 2px 2px 5px -2px rgba(0, 0, 0, 0.2);
+      -webkit-box-shadow: 2px 2px 5px -2px rgba(0, 0, 0, 0.2);
+      -moz-box-shadow: 2px 2px 5px -2px rgba(0, 0, 0, 0.2);
+      box-shadow: 2px 2px 5px -2px rgba(0, 0, 0, 0.2);
 
-			.feedItemLeft {
-				background-color: red;
+      .feedItemLeft {
+        background-color: red;
 
-				width: 30%;
-				object-fit: contain;
+        width: 30%;
+        object-fit: contain;
 
-				order: 1;
+        order: 1;
 
-				img {
-					width: 100%;
-					height: 100%;
-				}
-			}
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
 
-			.feedItemRight {
-				padding: 10px;
+      .feedItemRight {
+        padding: 10px;
 
-				width: 70%;
+        width: 70%;
 
-				order: 2;
-				.title {
-					margin-bottom: 10px;
-					font-size: 1.1em;
-					font-weight: 500;
-				}
-				.preview {
-					margin-bottom: 16px;
+        order: 2;
+        .title {
+          margin-bottom: 10px;
+          font-size: 1.1em;
+          font-weight: 500;
+        }
+        .preview {
+          margin-bottom: 16px;
 
-					opacity: 60%;
+          opacity: 60%;
 
-					display: -webkit-box;
-					-webkit-line-clamp: 3;
-					-webkit-box-orient: vertical;
-					overflow: hidden;
-				}
-				.info {
-					margin-bottom: 5px;
+          display: -webkit-box;
+          -webkit-line-clamp: 3;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+        .info {
+          margin-bottom: 5px;
 
-					display: flex;
-					flex-direction: row;
-					.category {
-					}
-					.sentiment {
-						color: #ff4976;
-					}
-				}
-			}
-		}
-	}
+          display: flex;
+          flex-direction: row;
+          .category {
+          }
+          .sentiment {
+            color: #ff4976;
+          }
+        }
+      }
+    }
+  }
 }
