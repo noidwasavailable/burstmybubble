@@ -1,4 +1,4 @@
-renderSurveyModal()
+renderSurveyModal();
 
 function renderSurveyModal() {
     const modal = document.createElement('div')
@@ -14,7 +14,6 @@ function renderSurveyModal() {
     const question_section = "<div style='margin: 1rem 2rem;'><h2> Do they share the same opinion? </h2> <button style='background-color: #35CD96;' class='my-button'> Yes </button><button style='background-color: #FF4975' class='my-button'> No </button></div>"
     const top_bar = " <h1 style='margin: 1rem 2rem;'> Here are two articles you've recently read: </h1>"
     const complete_modal = "<div style='margin: 16px 16px;'>"+ top_bar + combine_article + question_section + "</div>"
-
 
     const child = document.createElement('div')
     child.classList.add('ext-child')
