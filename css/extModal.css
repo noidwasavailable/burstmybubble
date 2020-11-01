@@ -20,6 +20,29 @@
     margin: 16px 8px;
 }
 
+#burstbubble-modal h1 {
+    color: black;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+#burstbubble-modal h2 {
+    color: black;
+    font-size: 24px;
+    font-weight: 400;
+}
+
+#burstbubble-modal h3 {
+    color: black;
+    font-size: 18px;
+    font-weight: 400px;
+}
+
+#burstbubble-modal h4 {
+    color: black;
+    font-size: small;
+}
+
 .my-button {
     color: white;
     border: 0;
@@ -40,6 +63,7 @@
     transform: translate(-50%, -50%);
     border-radius: 10px;
     font-family: 'Roboto', sans-serif;
+    overflow: auto;
   }
 
 .ext-modal {
@@ -58,4 +82,10 @@
 
 .ext-sent-spicy {
     color: #FF4976;
+}
+
+#close-modal-btn {
+    margin-top: 1rem;
+    margin-left: 1rem;
+    cursor: pointer;
 }
