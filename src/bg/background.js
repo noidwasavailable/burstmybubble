@@ -13,7 +13,7 @@
 //Listen to the message that is sent from the foreground
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   //If the modal button was clicked, open the comparison modal
-  if (request.message === 'The button was clicked') {
+  if (request.message === 'Open Modal') {
     console.log('Hello?');
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
       var current_tab = tabs[0];
@@ -30,5 +30,8 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         }
       });
     });
+  } else if (request.message === 'Open Dashboard') {
+    console.log('Dashboard please');
+    chrome.tabs.create({ url: 'src/dashboard/dashboard.html' });
   }
 });
