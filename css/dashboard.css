@@ -1,59 +1,49 @@
 .root {
-  font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu;
-}
-.root .wrapper {
-  display: flex;
-}
-.root .wrapper .header-wrapper {
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 100%;
-  z-index: 110;
-}
-.root .wrapper .header-wrapper .header {
-  width: 100%;
-  height: 48px;
-  padding: 0 12px;
-  background-color: #ffffff;
-}
-.root .wrapper .header-wrapper .header .title {
-  width: 100%;
-  height: 100%;
-  font-weight: 500;
-  font-size: 1em;
-  text-align: center;
-  padding: 12px 0;
-}
-.root .wrapper .page-wrapper {
-  position: fixed;
-  left: 0;
-  top: 48px;
-  height: calc(100vh - 48px);
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-}
-.root .wrapper .page-wrapper .menubar {
-  background-color: slateblue;
-  max-width: 420px;
-  width: 230px;
-}
-.root .wrapper .page-wrapper .menubar .menubar-item {
-  width: 100%;
-  text-align: center;
-  vertical-align: middle;
-  padding: 24px 0;
-  color: #ffffff;
-}
-.root .wrapper .page-wrapper .menubar .menubar-item:hover {
-  background-color: #8758f9;
-  -webkit-transition: background-color 0.3s ease;
-  transition: background-color 0.3s ease;
-}
-.root .wrapper .page-wrapper .contents {
-  width: calc(100% - 230px);
-  background-color: skyblue;
-}
+  font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, Ubuntu; }
+  .root .wrapper {
+    display: flex; }
+    .root .wrapper .header-wrapper {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 100%;
+      z-index: 110; }
+      .root .wrapper .header-wrapper .header {
+        width: 100%;
+        height: 48px;
+        padding: 0 12px;
+        background-color: #ffffff; }
+        .root .wrapper .header-wrapper .header .title {
+          width: 100%;
+          height: 100%;
+          font-weight: 500;
+          font-size: 1em;
+          text-align: center;
+          padding: 12px 0; }
+    .root .wrapper .page-wrapper {
+      position: fixed;
+      left: 0;
+      top: 48px;
+      height: calc(100vh - 48px);
+      width: 100%;
+      display: flex;
+      flex-direction: row; }
+      .root .wrapper .page-wrapper .menubar {
+        background-color: slateblue;
+        max-width: 420px;
+        width: 230px; }
+        .root .wrapper .page-wrapper .menubar .menubar-item {
+          width: 100%;
+          text-align: center;
+          vertical-align: middle;
+          padding: 24px 0;
+          color: #ffffff; }
+          .root .wrapper .page-wrapper .menubar .menubar-item:hover {
+            background-color: #8758f9;
+            -webkit-transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease; }
+      .root .wrapper .page-wrapper .contents {
+        width: calc(100% - 230px);
+        background-color: skyblue; }
 
 /*# sourceMappingURL=dashboard.css.map */
