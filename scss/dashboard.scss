@@ -15,11 +15,17 @@
         height: 48px;
         padding: 0 12px;
 
-        background-color: rosybrown;
+        background-color: #ffffff;
 
-        font-weight: 500;
-        font-size: 2em;
-        text-align: center;
+        .title {
+          width: 100%;
+          height: 100%;
+          font-weight: 500;
+          font-size: 1em;
+          text-align: center;
+
+          padding: 12px 0;
+        }
       }
     }
 
@@ -37,6 +43,21 @@
 
         max-width: 420px;
         width: 230px;
+
+        .menubar-item {
+          width: 100%;
+          text-align: center;
+          vertical-align: middle;
+          padding: 24px 0;
+
+          color: #ffffff;
+
+          &:hover {
+            background-color: #8758f9;
+            -webkit-transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease;
+          }
+        }
       }
 
       .contents {
