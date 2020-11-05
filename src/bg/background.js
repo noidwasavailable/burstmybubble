@@ -32,6 +32,6 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     });
   } else if (request.message === 'Open Dashboard') {
     console.log('Dashboard please');
-    chrome.tabs.create({ url: 'src/dashboard/dashboard.html' });
+    chrome.tabs.create({ url: 'src/dashboard/dashboard_home.html' });
   }
 });
