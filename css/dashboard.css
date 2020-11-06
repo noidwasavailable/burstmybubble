@@ -89,6 +89,7 @@
   text-align: center;
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
 .root .wrapper .page-wrapper .contents .bottom-wrapper .bottom-left .checklist-box {
   display: flex;
@@ -112,6 +113,38 @@
   width: 50%;
   background-color: coral;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+}
+.root .wrapper .page-wrapper .contents .bottom-wrapper .bottom-right .recommendations {
+  height: 50%;
+  background-color: cornflowerblue;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.root .wrapper .page-wrapper .contents .bottom-wrapper .bottom-right .recommendations .count {
+  display: flex;
+  flex-direction: row;
+}
+.root .wrapper .page-wrapper .contents .bottom-wrapper .bottom-right .recommendations .count .count-item {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+.root .wrapper .page-wrapper .contents .bottom-wrapper .bottom-right .recommendations .count .count-item .count-stat {
+  font-weight: 500;
+  font-size: 2em;
+}
+.root .wrapper .page-wrapper .contents .bottom-wrapper .bottom-right .suggestions {
+  height: 50%;
+  background-color: crimson;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 /*# sourceMappingURL=dashboard.css.map */
