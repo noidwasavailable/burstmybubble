@@ -71,11 +71,26 @@
   display: flex;
   flex-direction: column;
 }
-.root .wrapper .page-wrapper .contents .on-off-button {
+.root .wrapper .page-wrapper .contents .top-half {
   width: 100%;
   height: 50%;
-  background-color: tan;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.root .wrapper .page-wrapper .contents .top-half .title {
+  padding: 20px 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5em;
+  font-weight: 500;
+}
+.root .wrapper .page-wrapper .contents .top-half .title img {
+  padding: 0 5px;
 }
 .root .wrapper .page-wrapper .contents .bottom-wrapper {
   width: 100%;
