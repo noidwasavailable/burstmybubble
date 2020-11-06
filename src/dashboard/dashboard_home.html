@@ -1,71 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
+  <link rel="stylesheet" href="../../css/reset.css" />
   <link rel="stylesheet" href="../../css/dashboard.css" />
 
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
     <title>Burst My Bubble!</title>
   </head>
   <body>
-    <div class="root">
-      <div class="wrapper">
-        <div class="header-wrapper">
-          <div class="header">
-            <div class="title">Burst My Bubble!</div>
-          </div>
-        </div>
-        <div class="page-wrapper">
-          <div class="menubar">
-            <div class="menubar-item active" id="menubar-item-home">HOME</div>
-            <div class="menubar-item" id="menubar-item-history">HISTORY</div>
-            <div class="menubar-item" id="menubar-item-feed">FEED</div>
-            <div class="menubar-item" id="menubar-item-headlines">
-              HEADLINES
+    <div class="header">
+      <div class="title">Burst My Bubble!</div>
+    </div>
+    <div class="menubar">
+      <div class="menubar-item active" id="menubar-item-home">HOME</div>
+      <div class="menubar-item" id="menubar-item-history">HISTORY</div>
+      <div class="menubar-item" id="menubar-item-feed">FEED</div>
+      <div class="menubar-item" id="menubar-item-headlines">HEADLINES</div>
+    </div>
+    <div class="contents">
+      <div class="home">
+        <div class="on-off-button">Bubbles Now Bursting</div>
+        <div class="bottom-wrapper">
+          <div class="bottom-left">
+            <div class="checklist-box">
+              <div class="title text">Topic</div>
+              <div class="text">
+                You are reading articles from various topics.
+              </div>
+            </div>
+            <div class="checklist-box warning">
+              <div class="title text">Sentiment</div>
+              <div class="text">
+                You are refraining from articles which sensationalize.
+              </div>
+            </div>
+            <div class="checklist-box">
+              <div class="title text">Bias</div>
+              <div class="text">
+                You are reading articles with various opinions.
+              </div>
             </div>
           </div>
-          <div class="contents">
-            <div class="on-off-button">Bubbles Now Bursting</div>
-            <div class="bottom-wrapper">
-              <div class="bottom-left">
-                <div class="checklist-box">
-                  <div class="title text">Topic</div>
-                  <div class="text">
-                    You are reading articles from various topics.
-                  </div>
+          <div class="bottom-right">
+            <div class="recommendations">
+              <div>Recommended</div>
+              <div class="count">
+                <div class="count-item">
+                  <div class="count-stat">123</div>
+                  <div class="count-name">articles</div>
                 </div>
-                <div class="checklist-box warning">
-                  <div class="title text">Sentiment</div>
-                  <div class="text">
-                    You are refraining from articles which sensationalize.
-                  </div>
-                </div>
-                <div class="checklist-box">
-                  <div class="title text">Bias</div>
-                  <div class="text">
-                    You are reading articles with various opinions.
-                  </div>
+                <div class="count-item">
+                  <div class="count-stat">456</div>
+                  <div class="count-name">topics</div>
                 </div>
               </div>
-              <div class="bottom-right">
-                <div class="recommendations">
-                  <div>Recommended</div>
-                  <div class="count">
-                    <div class="count-item">
-                      <div class="count-stat">123</div>
-                      <div class="count-name">articles</div>
-                    </div>
-                    <div class="count-item">
-                      <div class="count-stat">456</div>
-                      <div class="count-name">topics</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="suggestions">
-                  <div class="title">Read about a new topic:</div>
-                  <div class="suggestion-item">sth goes here</div>
-                </div>
-              </div>
+            </div>
+            <div class="suggestions">
+              <div class="title">Read about a new topic:</div>
+              <div class="suggestion-item">sth goes here</div>
             </div>
           </div>
         </div>
