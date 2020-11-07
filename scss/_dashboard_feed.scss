@@ -1,0 +1,46 @@
+.feed {
+  background-color: wheat;
+
+  display: grid;
+  grid-auto-rows: 1fr;
+  grid-template-rows: 1fr;
+
+  .feed__topic {
+    margin-top: 60px;
+    background-color: yellowgreen;
+
+    display: grid;
+    grid-template-columns: min-content 1fr min-content;
+    grid-template-rows: 60px 1fr;
+    grid-template-areas:
+      '_____ title title'
+      'left articles right';
+    .feed__topic-title {
+      grid-area: title;
+      margin: auto 0;
+    }
+    .feed__icon-left {
+      grid-area: left;
+      align-self: center;
+    }
+    .feed__icon-right {
+      grid-area: right;
+      align-self: center;
+    }
+    .feed__articles {
+      grid-area: articles;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 30px;
+
+      .feed__article {
+        width: 100%;
+        height: 300px;
+        align-self: center;
+        justify-self: center;
+        background-color: sandybrown;
+      }
+    }
+  }
+}
