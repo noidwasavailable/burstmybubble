@@ -1,14 +1,34 @@
 .home {
   background-color: #ffffff;
-  display: grid;
-  grid-template-rows: 1fr auto;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
   height: 100%;
 }
-.home .on-off-button {
-  background-color: tan;
+.home .top-half {
+  width: 100%;
+  height: 50%;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.home .top-half .title {
+  padding: 20px 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5em;
+  font-weight: 500;
+}
+.home .top-half .title img {
+  padding: 0 5px;
 }
 .home .bottom-wrapper {
+  width: 100%;
+  height: 50%;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -63,13 +83,7 @@
   flex-direction: column;
   padding: 10px;
 }
-.home
-  .bottom-wrapper
-  .bottom-right
-  .recommendations
-  .count
-  .count-item
-  .count-stat {
+.home .bottom-wrapper .bottom-right .recommendations .count .count-item .count-stat {
   font-weight: 500;
   font-size: 2em;
 }
@@ -94,7 +108,7 @@
   display: grid;
   grid-template-columns: min-content 1fr min-content;
   grid-template-rows: 60px 1fr;
-  grid-template-areas: '_____ title title' 'left articles right';
+  grid-template-areas: "_____ title title" "left articles right";
 }
 .feed .feed__topic .feed__topic-title {
   grid-area: title;
@@ -124,8 +138,7 @@
 }
 
 body {
-  font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto,
-    Ubuntu;
+  font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu;
   display: grid;
   grid-template-columns: 240px 1fr;
   grid-template-rows: 60px 1fr;
@@ -143,9 +156,6 @@ body .header .title {
   font-weight: 500;
   font-size: 1em;
   margin-bottom: 0.4em;
-}
-body .contents {
-  grid-column: 2/-1;
 }
 body .menubar {
   position: fixed;
@@ -176,6 +186,11 @@ body .menubar .active:hover {
   background-color: #ffffff;
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
+}
+body .contents {
+  grid-column: 2/-1;
+  width: 100%;
+  background-color: #ffffff;
 }
 
 /*# sourceMappingURL=dashboard.css.map */
