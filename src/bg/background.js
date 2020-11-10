@@ -13,6 +13,7 @@
 //Listen to the message that is sent from the foreground
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   //If the modal button was clicked, open the comparison modal
+  console.log(request)
   if (request.message === 'Open Modal') {
     console.log('Hello?');
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
