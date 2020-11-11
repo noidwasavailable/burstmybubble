@@ -60,7 +60,6 @@
 }
 .home .bottom-wrapper .bottom-right {
   width: 50%;
-  background-color: coral;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -68,7 +67,6 @@
 }
 .home .bottom-wrapper .bottom-right .recommendations {
   height: 50%;
-  background-color: cornflowerblue;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -89,7 +87,6 @@
 }
 .home .bottom-wrapper .bottom-right .suggestions {
   height: 50%;
-  background-color: crimson;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -151,6 +148,7 @@ body .header {
   display: flex;
   justify-content: center;
   align-items: center;
+  position: sticky;
 }
 body .header .title {
   font-weight: 500;
@@ -162,28 +160,25 @@ body .menubar {
   top: 60px;
   width: 240px;
   height: calc(100vh - 60px);
-  background-color: slateblue;
+  border-right: 1px solid #d2d2d2;
 }
 body .menubar .menubar-item {
   width: 100%;
   text-align: center;
   vertical-align: middle;
   padding: 24px 0;
-  color: #ffffff;
+  color: #8a8a8a;
 }
 body .menubar .menubar-item:hover {
-  background-color: #8758f9;
+  background-color: #e0e0e0;
   -webkit-transition: background-color 0.3s ease;
   transition: background-color 0.3s ease;
 }
 body .menubar .active {
-  background-color: #ffffff;
-  color: slateblue;
-  font-weight: 700;
+  color: #000000;
 }
 body .menubar .active:hover {
-  color: #8758f9;
-  background-color: #ffffff;
+  background-color: #e0e0e0;
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
