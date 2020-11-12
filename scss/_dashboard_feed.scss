@@ -22,10 +22,12 @@
     .feed__icon-left {
       grid-area: left;
       align-self: center;
+      text-align: center;
     }
     .feed__icon-right {
       grid-area: right;
       align-self: center;
+      text-align: center;
     }
     .feed__articles {
       grid-area: articles;
