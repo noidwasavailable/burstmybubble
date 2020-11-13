@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 project_id = "burst-my-bubble"
 
 # Use the application default credentials
-cred = credentials.Certificate("./burst-my-bubble-firebase-adminsdk-dwfzd-b0383cae47.json")
+cred = credentials.Certificate("../deps/burst-my-bubble-firebase-adminsdk-dwfzd-b0383cae47.json")
 firebase_admin.initialize_app(cred, {
   'projectId': project_id
 ,
