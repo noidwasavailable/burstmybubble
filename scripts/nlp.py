@@ -3,7 +3,7 @@ from google.cloud import language_v1
 import os
 import sys
 
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"]=os.path.abspath(os.getcwd())+"\\burstmybubble-14a338b23039.json"
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"]=os.path.abspath(os.getcwd())+"\\deps\\burstmybubble-14a338b23039.json"
 
 def analyze_entities(text):
     client = language_v1.LanguageServiceClient()
