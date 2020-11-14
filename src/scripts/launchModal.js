@@ -28,4 +28,19 @@ function renderSurveyModal() {
     document.getElementById('close-modal-btn').onclick = function(){
         document.querySelector('body').removeChild(modal)
     }
+
+    
+    chrome.runtime.onMessage.addListener(function(message) {
+        console.log(message.url)
+    })
 }
+
+/*The procedure of comparison back-end
+Scenario 1: The database already exist, so need to compare current article with a random but similar in entity with the current article
+1. Read the url and get the title of current article
+2. Analyze the entity based on the title (or the content, if you can)
+3. Find a similar one in the database
+4. Bring it out for comparison
+5. Compare and store the result
+
+*/
