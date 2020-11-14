@@ -10,7 +10,7 @@
     background-color: yellowgreen;
 
     display: grid;
-    grid-template-columns: min-content 1fr min-content;
+    grid-template-columns: 30px 1fr 30px;
     grid-template-rows: 60px 1fr;
     grid-template-areas:
       '_____ title title'
@@ -22,20 +22,25 @@
     .feed__icon-left {
       grid-area: left;
       align-self: center;
+      text-align: center;
     }
     .feed__icon-right {
       grid-area: right;
       align-self: center;
+      text-align: center;
     }
     .feed__articles {
       grid-area: articles;
       overflow: hidden;
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
+
+      display: flex;
+      flex-wrap: nowrap;
+
       gap: 30px;
 
       .feed__article {
-        width: 100%;
+        flex-shrink: 0;
+        width: 300px;
         height: 300px;
         align-self: center;
         justify-self: center;
