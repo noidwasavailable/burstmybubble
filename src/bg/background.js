@@ -13,9 +13,11 @@
 //Listen to the message that is sent from the foreground
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   //If the modal button was clicked, open the comparison modal
+  console.log(request)
   if (request.message === 'Open Modal') {
     console.log('Hello?');
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+      console.log(tabs)
       var current_tab = tabs[0];
       chrome.tabs.get(current_tab.id, (current_tab_info) => {
         if (!/^chrome/.test(current_tab_info.url)) {
@@ -24,7 +26,11 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
             null,
             { file: 'src/scripts/launchModal.js' },
             (_) => {
-              console.log('I injected');
+              // console.log(current_tab_info.url)
+              chrome.tabs.sendMessage(current_tab.id, {url: current_tab_info.url}, function(resp) {
+                console.log(success)
+              })
+              // console.log('I injected');
             }
           );
         }

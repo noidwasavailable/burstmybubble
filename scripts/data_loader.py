@@ -5,8 +5,16 @@ import requests
 from bs4 import BeautifulSoup
 project_id = "burst-my-bubble"
 
+
+''' 
+Notes:
+    1. You should always run this script in the scripts directory.
+    2. The functions here are for both collecting articles from the internet and also uploading them to database.
+    ...
+'''
+
 # Use the application default credentials
-cred = credentials.Certificate("./burst-my-bubble-firebase-adminsdk-dwfzd-b0383cae47.json")
+cred = credentials.Certificate("../deps/burst-my-bubble-firebase-adminsdk-dwfzd-b0383cae47.json")
 firebase_admin.initialize_app(cred, {
   'projectId': project_id
 ,
@@ -14,6 +22,7 @@ firebase_admin.initialize_app(cred, {
 
 db = firestore.client()
 
+# Load an article to the data base by using its title, author and content fields.
 def load_data(title, author, content):
     doc_ref = db.collection(u'Articles').document()
     doc_ref.set({
@@ -22,6 +31,8 @@ def load_data(title, author, content):
         u'content': content,
     })
 
+# Function to load any url data.
+# Usage not clearly identified yet.
 def load_url(url):
     res = requests.get(url)
     html_page = res.content
@@ -29,8 +40,9 @@ def load_url(url):
     text = soup.find_all(text=True)
     print (text)
 
-
-def request_guardian(url, api_url = False):
+# Fetch a guardian article using just the url and view.
+# This function does not upload the article to the database yet.
+def fetch_guardian_article(url, api_url = False):
     if not api_url:
         api_initial = r'https://content.guardianapis.com'
         # https://www.theguardian.com/world/2020/nov/04/exit-polls-economy-covid-lockdown-trump

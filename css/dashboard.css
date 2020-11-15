@@ -60,6 +60,7 @@
 }
 .home .bottom-wrapper .bottom-right {
   width: 50%;
+  background-color: coral;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -67,6 +68,7 @@
 }
 .home .bottom-wrapper .bottom-right .recommendations {
   height: 50%;
+  background-color: cornflowerblue;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -81,12 +83,19 @@
   flex-direction: column;
   padding: 10px;
 }
-.home .bottom-wrapper .bottom-right .recommendations .count .count-item .count-stat {
+.home
+  .bottom-wrapper
+  .bottom-right
+  .recommendations
+  .count
+  .count-item
+  .count-stat {
   font-weight: 500;
   font-size: 2em;
 }
 .home .bottom-wrapper .bottom-right .suggestions {
   height: 50%;
+  background-color: crimson;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -103,9 +112,9 @@
   margin-top: 60px;
   background-color: yellowgreen;
   display: grid;
-  grid-template-columns: min-content 1fr min-content;
+  grid-template-columns: 30px 1fr 30px;
   grid-template-rows: 60px 1fr;
-  grid-template-areas: "_____ title title" "left articles right";
+  grid-template-areas: '_____ title title' 'left articles right';
 }
 .feed .feed__topic .feed__topic-title {
   grid-area: title;
@@ -114,20 +123,23 @@
 .feed .feed__topic .feed__icon-left {
   grid-area: left;
   align-self: center;
+  text-align: center;
 }
 .feed .feed__topic .feed__icon-right {
   grid-area: right;
   align-self: center;
+  text-align: center;
 }
 .feed .feed__topic .feed__articles {
   grid-area: articles;
   overflow: hidden;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  display: flex;
+  flex-wrap: nowrap;
   gap: 30px;
 }
 .feed .feed__topic .feed__articles .feed__article {
-  width: 100%;
+  flex-shrink: 0;
+  width: 300px;
   height: 300px;
   align-self: center;
   justify-self: center;
@@ -135,20 +147,23 @@
 }
 
 body {
-  font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu;
+  font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Ubuntu;
   display: grid;
   grid-template-columns: 240px 1fr;
   grid-template-rows: 60px 1fr;
   min-height: 100vh;
 }
 body .header {
-  grid-column: 1/-1;
+  position: fixed;
+  height: 60px;
+  width: 100%;
+  z-index: 10;
   background-color: #ffffff;
-  border: 1px solid #d2d2d2;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2);
   display: flex;
   justify-content: center;
   align-items: center;
-  position: sticky;
 }
 body .header .title {
   font-weight: 500;
@@ -160,29 +175,33 @@ body .menubar {
   top: 60px;
   width: 240px;
   height: calc(100vh - 60px);
-  border-right: 1px solid #d2d2d2;
+  background-color: slateblue;
 }
 body .menubar .menubar-item {
   width: 100%;
   text-align: center;
   vertical-align: middle;
   padding: 24px 0;
-  color: #8a8a8a;
+  color: #ffffff;
 }
 body .menubar .menubar-item:hover {
-  background-color: #e0e0e0;
+  background-color: #8758f9;
   -webkit-transition: background-color 0.3s ease;
   transition: background-color 0.3s ease;
 }
 body .menubar .active {
-  color: #000000;
+  background-color: #ffffff;
+  color: slateblue;
+  font-weight: 700;
 }
 body .menubar .active:hover {
-  background-color: #e0e0e0;
+  color: #8758f9;
+  background-color: #ffffff;
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
 body .contents {
+  grid-row: 2/-1;
   grid-column: 2/-1;
   width: 100%;
   background-color: #ffffff;

@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "burstmybubble",
+  "private_key_id": "14a338b230390953dd7c3a7e867b8171b01abb53",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEuwIBADANBgkqhkiG9w0BAQEFAASCBKUwggShAgEAAoIBAQDK7/zhnUq3sn0y\nd8PSmu1sn2EQ2ilLdh2N0zFbHKT4izkpTtlt5T+4eiB41+mw6ZetCijGaK0WiBAD\n4qsANxQnh7MANM2NR9Zcy5SeUt3c1n8iiDKweoZrd3VuwEkdTdtJUGOcMAaAgGS8\nH7mYtI/yaZV22zZElXAMuMfz4fpXGKHBci7hIWoCLGK7HjkfeqFbZ4pLKhzJQPnh\nu4UcxacDU3Xuqfxu+LhUcpytvpaHmBvf2j57BvlmxeKgA/ejG9AksNgRBNu+5wMF\nmez9EZ92ieK3sOnRd5Yh5MIjcaagk1m36FhgPgFNj6AlwhwzqOL1an3H2I9vOO+B\naoKpr2ZBAgMBAAECgf9gOJET/cW8CR/6qJIyiz9LVRSkg5Nw3RkbjsWoJMr+W/ac\nnagMHCvmzg9pPMwEomfxM/OBZtzVkE35bTOHNpZZko3c6WVM5A9PrMypBPpieZGK\nwZPjpBg/Ju3eYcLzrnwJJS9OkppmLEGXIwkJeUxq0IUoaWf3EjIwZDrqadJVZvPN\nn13JTEud/A3cDKPQ8FLwA4YI6OtI1wZFNnxuvQ0KYG1W2BtSgmTkdm0WobqJ9LHD\nEMmUR92do9ugwjhtVINY+X52uvvqWSXZHGNgDutMmwnByiZOhz4mzzFWUCc29A3D\n+A53TItAqmwLwezgWqaGjfmTN5QGE9HjaO45EVECgYEA6bgioNCOD1+YP2KuL7tq\nUaurAyaEgpsYHKrW3Q/vfEik1TWy3dWPabXihbEhdjyw47KfzH11mtrvXA01s+69\nOPJ7SlA1FZtrNF8owZYju24ZO3gy4jTvUcU8xXcPwKlCcgho7BCpaIMncNttjg+X\nC28suioz9elJvSVZmo6XO3ECgYEA3kihFXwgiB1Syrpkd6NBzEdJFMHABMZuZY6e\n/F5wpTKcau0IDBoCOaIwkconJEwYifwViQu0QWYkLSolvlNobV9u58Q79TnZuzm0\njl22a4v0RQ6dfwXyNx+LiSDlFu2dhin6vPy1sNVUhwOIa1onjKSyjSqPBl0FiimM\n27LgT9ECgYBdKfVDvV6jaiu6OI/OnxqGa7PDkbsIhOJbqw3zGMMR+7MY+krOeq6s\nKMCfIjiAdTjdyvo//VK/472+J9XcX7I13RKgUNCYSFe3jKcmY77im8SbHBLMcOVk\n5waOgCNbXR0Lb6bDUvD0pDM4nX9SPYysFijyHJiR0eh+6UCKh4RpQQKBgQCsHrs1\nAr/CBkrElh4TkcPyZUSOoRSJ3gk/9HbhXlOFZ7I9DbvMexs7+332df1nGtFpj1wx\nmXGDro7WtisxvC5BesNLDeWLlrclRaKtFp2Zm26TRqTn5ffPfUqz7VfXMDlo2PrB\n+kDKY/Ym8bJhxhaXzjRAITNMrx0KBfB/cnxE8QKBgGyfqgHv8y654iXJYJvXrLow\nysPL2m0aK3tFY+4XkXjMRniU4otNZTbGTVe85U0kgrrK+vcR1Bl5rgVEvFQPY9Gy\njP9OhTcm6eD3uaqhgtQ428BtVQmZzNamjs4nQlz4tBn1eMuq98XdHDC5GVh3LJX1\neRUOBQlT5+zKOv2GJCaZ\n-----END PRIVATE KEY-----\n",
+  "client_email": "productowner@burstmybubble.iam.gserviceaccount.com",
+  "client_id": "105278753431276008484",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/productowner%40burstmybubble.iam.gserviceaccount.com"
+}
