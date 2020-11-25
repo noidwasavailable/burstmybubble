@@ -53,6 +53,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     console.log('Dashboard please');
     chrome.tabs.create({ url: 'src/dashboard/dashboard_home.html' });
   }
+  return true;
 });
 
 const project_id = "burst-my-bubble"
@@ -108,11 +109,17 @@ function compareDB(url, entities) {
       });
       console.log(similar_articles)
       //Set to 0 as a test; Can be changed into the one with saliency
-      var ref = firebase.firestore().collection('Articles').doc(similar_articles[0].doc_id).get()
+      var choosen_article = similar_articles[0]
+      var ref = firebase.firestore().collection('Articles').doc(choosen_article.doc_id).get()
       ref.then(function(doc) {
         if (doc.exists) {
           console.log(doc.data().title)
-          window.localStorage.setItem("sim_artc", doc.data().title)
+          // window.localStorage.setItem("sim_artc", doc.data().title)
+          chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+            chrome.tabs.sendMessage(tabs[0].id, {type: "ARTICLE", similar_article: {
+              title: doc.data().title, id: choosen_article.doc_id}
+            });
+          });
         } else {
             // doc.data() will be undefined in this case
             console.log("No such document!");

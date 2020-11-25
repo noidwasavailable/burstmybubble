@@ -49,6 +49,9 @@
     padding: 8px 16px;
     margin-right: 16px;
     border-radius: 5px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
     cursor: pointer;
     z-index: 100000;
 }
