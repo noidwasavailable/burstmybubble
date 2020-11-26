@@ -4,4 +4,4 @@ An extension to help burst filter bubble when reading various article
 
 ## Info
 
-Server IP: 13.125.255.130
+Server IP: 15.164.214.36 -> Prone to change

@@ -1,8 +1,21 @@
 // if you checked "fancy-settings" in extensionizr.com, uncomment this lines
 
-// var settings = new Store("settings", {
-//     "sample_setting": "This is how you use Store.js to remember values"
-// });
+
+const project_id = "burst-my-bubble"
+var firebaseConfig = {
+  apiKey: "AIzaSyAly6suzyJiqxMeza422V_ug5mE2x-9scs",
+  authDomain: "burst-my-bubble.firebaseapp.com",
+  databaseURL: "https://burst-my-bubble.firebaseio.com",
+  projectId: "burst-my-bubble",
+  storageBucket: "burst-my-bubble.appspot.com",
+  messagingSenderId: "380940710985",
+  appId: "1:380940710985:web:ea733e25936879ab4bbb98",
+  measurementId: "G-CBWQ2QYYCE"
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+firebase.analytics();
+var db = firebase.firestore();
 
 //Keep track of the current tab that is active
 // var current_tab = null
@@ -40,8 +53,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
               fetch('http://15.164.214.36/analyze-entity', param_det).then(
                   data => {return data.json()}
               ).then(res => {
-                  console.log(res)
-                  compareDB(current_tab_info.url, res.entities)
+                  get_article_id(res.title, current_tab_info.url, res.entities.entities)
               })
               // console.log('I injected');
             }
@@ -52,27 +64,16 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   } else if (request.message === 'Open Dashboard') {
     console.log('Dashboard please');
     chrome.tabs.create({ url: 'src/dashboard/dashboard_home.html' });
+  } else if (request.message === 'Update Similarity Score') {
+    console.log("Update message received")
+    // console.log(request)
+    update_similarity_score(request.src, request.article1, request.article2)
   }
   return true;
 });
 
-const project_id = "burst-my-bubble"
-var firebaseConfig = {
-  apiKey: "AIzaSyAly6suzyJiqxMeza422V_ug5mE2x-9scs",
-  authDomain: "burst-my-bubble.firebaseapp.com",
-  databaseURL: "https://burst-my-bubble.firebaseio.com",
-  projectId: "burst-my-bubble",
-  storageBucket: "burst-my-bubble.appspot.com",
-  messagingSenderId: "380940710985",
-  appId: "1:380940710985:web:ea733e25936879ab4bbb98",
-  measurementId: "G-CBWQ2QYYCE"
-};
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-firebase.analytics();
-var db = firebase.firestore();
 
-function compareDB(url, entities) {
+function compareDB(url, entities, curr_id) {
   //Pick 10 entities 
   var top_entities = []
   console.log(entities)
@@ -108,8 +109,15 @@ function compareDB(url, entities) {
         }
       });
       console.log(similar_articles)
-      //Set to 0 as a test; Can be changed into the one with saliency
-      var choosen_article = similar_articles[0]
+      //Set to 0 as a test; Can be changed into the one with highest saliency
+      var choosen_article = null
+      for (var i in similar_articles) {
+        if (similar_articles[i].doc_id !== curr_id) {
+          choosen_article = similar_articles[i]
+          break
+        }
+      }
+
       var ref = firebase.firestore().collection('Articles').doc(choosen_article.doc_id).get()
       ref.then(function(doc) {
         if (doc.exists) {
@@ -117,7 +125,7 @@ function compareDB(url, entities) {
           // window.localStorage.setItem("sim_artc", doc.data().title)
           chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
             chrome.tabs.sendMessage(tabs[0].id, {type: "ARTICLE", similar_article: {
-              title: doc.data().title, id: choosen_article.doc_id}
+              title: doc.data().title, id: choosen_article.doc_id, curr_id: curr_id}
             });
           });
         } else {
@@ -126,4 +134,112 @@ function compareDB(url, entities) {
         }
     })
   });
+}
+
+async function get_article_id(title, url, entities) {
+  var article_id = []
+  db.collection("Articles").where("title", "==", title).get()
+  .then(function(querySnapshot) {
+    querySnapshot.forEach(doc => {
+      article_id.push(doc.id)
+    })
+    console.log(article_id)
+    if (article_id.length > 0) {
+      compareDB(url, entities, article_id[0])
+    }
+    else {
+      compareDB(url, entities, "No article found")
+    }
+  })
+}
+
+function update_similarity_score(src, article1, article2) {
+  console.log("article 2: "+article2)
+  var added_score = 0
+  if (src === "YES") {
+    added_score = 1
+  } else if (src === "NOT RELATED") {
+    added_score = -0.5
+  }
+  var art1_ref = db.collection("Articles").doc(article1)
+  art1_ref.get().then(doc => {
+    var curr_data = doc.data().scores
+    console.log(typeof curr_data)
+    if (curr_data === undefined) {
+      var new_score = {
+        score: added_score,
+        num_survey: 1
+      }
+      var new_data = {}
+      new_data[article2] = new_score
+      console.log("YOU'RE STILL WRONG HOE")
+      console.log(new_data)
+      art1_ref.update({
+        "scores": new_data
+      })
+    }
+    else if (article2 in curr_data) {
+      console.log("Article found")
+      var curr_score = curr_data[article2]
+      var new_score = {
+        score: (curr_score.score * curr_score.num_survey + added_score)/(curr_score.num_survey+1),
+        num_survey: curr_score.num_survey+1
+      }
+      curr_data[article2] = new_score
+      console.log(curr_data)
+      art1_ref.update({
+        "scores": curr_data
+      })
+    }
+    else {
+      var new_score = {
+        score: added_score,
+        num_survey: 1
+      }
+      curr_data[article2] = new_score
+      art1_ref.update({
+        "scores": curr_data
+      })
+    }
+  })
+  //Update for the second article
+  var art2_ref = db.collection("Articles").doc(article2)
+  art2_ref.get().then(doc => {
+    var curr_data = doc.data().scores
+    console.log(curr_data)
+    if (curr_data === undefined) {
+      var new_score = {
+        score: added_score,
+        num_survey: 1
+      }
+      var new_data = {}
+      new_data[article1] = new_score
+      art2_ref.update({
+        "scores": new_data
+      })
+    }
+    else if (article1 in curr_data) {
+      console.log("Article found")
+      var curr_score = curr_data[article1]
+      var new_score = {
+        score: (curr_score.score * curr_score.num_survey + added_score)/(curr_score.num_survey+1),
+        num_survey: curr_score.num_survey+1
+      }
+      curr_data[article1] = new_score
+      console.log(curr_data)
+      art2_ref.update({
+        "scores": curr_data
+      })
+    }
+    else {
+      var new_score = {
+        score: added_score,
+        num_survey: 1
+      }
+      curr_data[article1] = new_score
+      art2_ref.update({
+        "scores": curr_data
+      })
+    }
+  })
 }
