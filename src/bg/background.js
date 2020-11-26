@@ -172,7 +172,6 @@ function update_similarity_score(src, article1, article2) {
       }
       var new_data = {}
       new_data[article2] = new_score
-      console.log("YOU'RE STILL WRONG HOE")
       console.log(new_data)
       art1_ref.update({
         "scores": new_data

@@ -38,7 +38,6 @@ function renderSurveyModal() {
     
     chrome.runtime.onMessage.addListener(function(message) {
         console.log(message)
-        console.log("Hoe")
         if (message.type === "ARTICLE") {
             console.log(message)
             localStorage.setItem("sim_artc", JSON.stringify(message.similar_article))
