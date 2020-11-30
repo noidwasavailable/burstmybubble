@@ -55,7 +55,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
               ).then(res => {
                   get_article_id(res.title, current_tab_info.url, res.entities.entities)
               })
-              // console.log('I injected');
+              console.log('I injected');
             }
           );
         }
@@ -73,7 +73,8 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 });
 
 
-function compareDB(url, entities, curr_id) {
+function compareDB(url, entities, curr_article) {
+  var curr_id = curr_article.id
   //Pick 10 entities 
   var top_entities = []
   console.log(entities)
@@ -125,7 +126,7 @@ function compareDB(url, entities, curr_id) {
           // window.localStorage.setItem("sim_artc", doc.data().title)
           chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
             chrome.tabs.sendMessage(tabs[0].id, {type: "ARTICLE", similar_article: {
-              title: doc.data().title, id: choosen_article.doc_id, curr_id: curr_id}
+              title: doc.data().title, id: choosen_article.doc_id, curr_id: curr_id, curr_art: curr_article.data, new_article: doc.data()}
             });
           });
         } else {
@@ -141,7 +142,7 @@ async function get_article_id(title, url, entities) {
   db.collection("Articles").where("title", "==", title).get()
   .then(function(querySnapshot) {
     querySnapshot.forEach(doc => {
-      article_id.push(doc.id)
+      article_id.push({id: doc.id, data: doc.data()})
     })
     console.log(article_id)
     if (article_id.length > 0) {
