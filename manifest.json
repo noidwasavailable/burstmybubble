@@ -11,12 +11,16 @@
 	},
 	"default_locale": "en",
 	"background": {
-		"scripts": ["src/bg/background.js"]
+		"page": "src/bg/background.html"
 	},
 	"browser_action": {
 		"default_icon": "icons/icon19.png",
 		"default_title": "browser action demo",
 		"default_popup": "src/browser_action/browser_action.html"
 	},
-	"permissions": ["cookies", "history", "tabs", "https://*/*"]
+	"content_security_policy": "script-src 'self' https://www.gstatic.com/ https://*.firebaseio.com https://www.googleapis.com; object-src 'self'",
+	"permissions": ["cookies", "history", "tabs", "https://*/*", 
+		"https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js",
+		"https://www.gstatic.com/firebasejs/8.1.1/firebase-firestore.js"
+	]
 }
