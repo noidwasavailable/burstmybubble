@@ -11,6 +11,8 @@ body {
   min-height: 100vh;
 
   .header {
+    grid-column: span 2;
+
     position: fixed;
     height: 60px;
     width: 100%;
