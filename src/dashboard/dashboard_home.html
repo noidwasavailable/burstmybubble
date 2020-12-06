@@ -10,6 +10,18 @@
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
     />
+    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js"></script>
+    <!-- <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase.js"></script> -->
+
+    <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+    <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-analytics.js"></script>
+
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-firestore.js"></script>
+
+    <script type="text/javascript" src="dashboard_survey.js"></script>
     <title>Burst My Bubble!</title>
   </head>
   <body>
@@ -36,14 +48,14 @@
                 />
               </div>
               <div class="card-bottom">
-                <div class="title">
+                <div class="title" id="article1-title">
                   Provider groups urge Trump to share COVID-19 information with
                   Biden transition team
                 </div>
                 <div class="info">
-                  <span class="category">Arts & Entertainment</span>
+                  <span class="category" id="article1-cat">Arts & Entertainment</span>
                   <span>&nbsp|&nbsp</span>
-                  <span class="sentiment-soft">Soft</span>
+                  <span id="article1-sentiment">Soft</span>
                 </div>
               </div>
             </div>
@@ -54,14 +66,14 @@
                 />
               </div>
               <div class="card-bottom">
-                <div class="title">
+                <div class="title" id="article2-title">
                   The long-term consequences of Trump's conspiracy theory
                   campaign
                 </div>
                 <div class="info">
-                  <span class="category">Arts & Entertainment</span>
+                  <span class="category" id="article2-cat">Arts & Entertainment</span>
                   <span>&nbsp|&nbsp</span>
-                  <span class="sentiment-spicy">Spicy</span>
+                  <span id="article2-sentiment">Spicy</span>
                 </div>
               </div>
             </div>
