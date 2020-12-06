@@ -21,12 +21,21 @@
       <div class="menubar-item active" id="menubar-item-history">HISTORY</div>
       <div class="menubar-item" id="menubar-item-feed">FEED</div>
     </div>
+
     <div class="contents">
-      <div id="history-panel" class="history">
-        <h1>This is where the history will be displayed</h1>
-      </div>
+      <div id="history-panel" class="history"></div>
     </div>
   </body>
 
+  <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js"></script>
+  <!-- <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase.js"></script> -->
+
+  <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+  <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-analytics.js"></script>
+
+  <!-- Add Firebase products that you want to use -->
+  <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-firestore.js"></script>
   <script src="./dashboard.js"></script>
+  <script src="./dashboard_history.js"></script>
 </html>
