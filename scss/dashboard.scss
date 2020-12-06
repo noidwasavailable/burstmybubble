@@ -1,4 +1,5 @@
 @import './_dashboard_home.scss';
+@import './_dashboard_history.scss';
 @import './_dashboard_feed.scss';
 
 body {
@@ -10,6 +11,8 @@ body {
   min-height: 100vh;
 
   .header {
+    grid-column: span 2;
+
     position: fixed;
     height: 60px;
     width: 100%;
@@ -20,6 +23,9 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+
+    position: sticky;
+
     .title {
       font-weight: 500;
       font-size: 1em;
@@ -33,7 +39,7 @@ body {
     width: 240px;
     height: calc(100vh - 60px);
 
-    background-color: slateblue;
+    border-right: 1px solid #d2d2d2;
 
     .menubar-item {
       width: 100%;
@@ -41,24 +47,21 @@ body {
       vertical-align: middle;
       padding: 24px 0;
 
-      color: #ffffff;
+      color: #8a8a8a;
 
       &:hover {
-        background-color: #8758f9;
+        background-color: #e0e0e0;
         -webkit-transition: background-color 0.3s ease;
         transition: background-color 0.3s ease;
       }
     }
 
     .active {
-      background-color: #ffffff;
-
-      color: slateblue;
-      font-weight: 700;
+      color: #000000;
+      // font-weight: 700;
 
       &:hover {
-        color: #8758f9;
-        background-color: #ffffff;
+        background-color: #e0e0e0;
         -webkit-transition: all 0.3s ease;
         transition: all 0.3s ease;
       }

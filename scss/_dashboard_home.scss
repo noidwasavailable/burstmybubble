@@ -22,11 +22,130 @@
       align-items: center;
       justify-content: center;
 
-      font-size: 1.5em;
+      font-size: 1em;
       font-weight: 500;
+    }
 
-      img {
-        padding: 0 5px;
+    .options {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+
+      .card {
+        margin: 0 24px 0 24px;
+
+        border-radius: 5px;
+        border: 1px solid rgba($color: #000000, $alpha: 0.25);
+        overflow: hidden;
+
+        width: 30%;
+
+        .img-preview {
+          img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+          }
+        }
+
+        .card-bottom {
+          padding: 12px;
+          text-align: left;
+
+          .title {
+            padding: 0;
+            font-size: 1em;
+            font-weight: 500;
+          }
+
+          .info {
+            padding-top: 10px;
+            .sentiment-spicy {
+              color: #ff4976;
+            }
+            .sentiment-hot {
+              color: #ff67de;
+            }
+            .sentiment-mild {
+              color: #af83fb;
+            }
+            .sentiment-soft {
+              color: #33acdf;
+            }
+            .sentiment-bland {
+              color: #36cd97;
+            }
+          }
+        }
+      }
+    }
+
+    .question {
+      padding: 20px 0;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+
+      font-size: 1em;
+      font-weight: 500;
+    }
+
+    .button-array {
+      display: flex;
+      flex-direction: row;
+
+      .button {
+        color: white;
+        border: 0;
+        padding: 8px 16px;
+        margin-right: 16px;
+        border-radius: 5px;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        cursor: pointer;
+        z-index: 100000;
+
+        font-weight: 500;
+      }
+
+      .yes-button {
+        background-color: #35cd96;
+        border: 2px solid #35cd96;
+
+        &:hover {
+          background-color: #56f7bc;
+          -webkit-transition: background-color 0.3s ease;
+          transition: background-color 0.3s ease;
+        }
+      }
+
+      .no-button {
+        background-color: #ff4975;
+        border: 2px solid #ff4975;
+
+        &:hover {
+          background-color: #ff83a2;
+          -webkit-transition: background-color 0.3s ease;
+          transition: background-color 0.3s ease;
+        }
+      }
+
+      .not-related-button {
+        color: grey;
+        background-color: white;
+        border: 2px solid grey;
+
+        &:hover {
+          border: 2px solid rgb(46, 46, 46);
+          color: rgb(46, 46, 46);
+          -webkit-transition: border 0.3s ease;
+          transition: border 0.3s ease;
+          -webkit-transition: color 0.3s ease;
+          transition: color 0.3s ease;
+        }
       }
     }
   }
@@ -74,16 +193,17 @@
 
     .bottom-right {
       width: 50%;
-      background-color: coral;
       text-align: center;
 
       display: flex;
       flex-direction: column;
       flex-wrap: nowrap;
 
+      align-items: center;
+      justify-content: center;
+
       .recommendations {
         height: 50%;
-        background-color: cornflowerblue;
 
         display: flex;
         flex-direction: column;
@@ -110,7 +230,6 @@
 
       .suggestions {
         height: 50%;
-        background-color: crimson;
 
         display: flex;
         flex-direction: column;

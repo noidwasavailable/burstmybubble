@@ -20,17 +20,61 @@
       <div class="menubar-item active" id="menubar-item-home">HOME</div>
       <div class="menubar-item" id="menubar-item-history">HISTORY</div>
       <div class="menubar-item" id="menubar-item-feed">FEED</div>
-      <div class="menubar-item" id="menubar-item-headlines">HEADLINES</div>
     </div>
     <div class="contents">
       <div class="home">
+        <!-- This is where we ask the question -->
+        <!-- Refer to _dashboard_home.scss for the styling -->
         <div class="top-half">
-          <div class="title">
-            <img src="../../assets/check-circle-green.svg" />
-            Bubbles now bursting.
+          <div class="title">Here are two articles you've recently read:</div>
+          <div class="options">
+            <!-- Each card represents 1 article, you can give them any ID you want -->
+            <div class="card">
+              <div class="img-preview">
+                <img
+                  src="https://media.heartlandtv.com/images/Biden+and+Trump+election+.jpg"
+                />
+              </div>
+              <div class="card-bottom">
+                <div class="title">
+                  Provider groups urge Trump to share COVID-19 information with
+                  Biden transition team
+                </div>
+                <div class="info">
+                  <span class="category">Arts & Entertainment</span>
+                  <span>&nbsp|&nbsp</span>
+                  <span class="sentiment-soft">Soft</span>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="img-preview">
+                <img
+                  src="https://c.o0bc.com/wp-content/uploads/2020/10/Election_2020_Debate_30924-850x478$large.jpg"
+                />
+              </div>
+              <div class="card-bottom">
+                <div class="title">
+                  The long-term consequences of Trump's conspiracy theory
+                  campaign
+                </div>
+                <div class="info">
+                  <span class="category">Arts & Entertainment</span>
+                  <span>&nbsp|&nbsp</span>
+                  <span class="sentiment-spicy">Spicy</span>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="on-off-button">
-            <img src="../../assets/toggleBtn-placeholder.svg" />
+          <div class="question">Do they share the same opinion?</div>
+          <div class="button-array">
+            <button class="button yes-button" id="yes-similar-button">
+              Yes
+            </button>
+            <button class="button no-button" id="no-similar-button">No</button>
+            <button class="button not-related-button" id="not-related-button">
+              Not Related
+            </button>
           </div>
         </div>
         <div class="bottom-wrapper">
@@ -68,10 +112,11 @@
                 </div>
               </div>
             </div>
-            <div class="suggestions">
+            <!-- put it back when we have something to recommend -->
+            <!-- <div class="suggestions">
               <div class="title">Read about a new topic:</div>
               <div class="suggestion-item">sth goes here</div>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
