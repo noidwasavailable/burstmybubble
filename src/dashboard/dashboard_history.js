@@ -49,7 +49,7 @@ function getArticleDiv(data) {
     '</p>\
       </div>\
       </div> <div>\
-      <div class="article-read-more">\
+      <div class="article-full-read">\
         <a href="' +
     article_url +
     '">Full article</a>\
