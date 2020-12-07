@@ -20,11 +20,14 @@ function getArticleDiv(data) {
   var read_date = '--/--/--';
   var read_time = '00:00';
   var article_url = data.url;
+  var img_url = data.img_url;
 
   var html_str =
     '<div class="article-card">\
     <div class="article-img">\
-      <img src="article.jpg" alt="article" />\
+      <img src="' +
+    img_url +
+    '" alt="article" />\
     </div>\
     <div class="article-info">\
       <div class="article-title">\
