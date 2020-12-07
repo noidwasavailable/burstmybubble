@@ -15,18 +15,45 @@ firebase.analytics();
 var db = firebase.firestore();
 
 function getArticleDiv(data) {
-  return (
-    '<div class="checklist-box">\
-        <div class="title text">' +
-    data.title +
-    '</div>\
-        <div class="text">' +
-    data.content.substring(0, 100) +
-    ' ...' +
-    '\
-        </div>\
-    </div>'
-  );
+  var title = data.title;
+  var desc = data.content.substring(0, 200) + '...';
+  var read_date = '--/--/--';
+  var read_time = '00:00';
+  var article_url = data.url;
+
+  var html_str =
+    '<div class="article-card">\
+    <div class="article-img">\
+      <img src="article.jpg" alt="article" />\
+    </div>\
+    <div class="article-info">\
+      <div class="article-title">\
+        <h2>' +
+    title +
+    '</h2>\
+      </div>\
+      <div class="read-date">\
+        <span>' +
+    read_time +
+    '</span>\
+        <span>' +
+    read_date +
+    '</span>\
+      </div>\
+      <div class="article-desc">\
+        <p>' +
+    desc +
+    '</p>\
+      </div>\
+      </div> <div>\
+      <div class="article-read-more">\
+        <a href="' +
+    article_url +
+    '">Full article</a>\
+      </div>\
+    </div>\
+  </div>';
+  return html_str;
 }
 
 var url_history = localStorage.getItem('history');
