@@ -1,13 +1,14 @@
 .feed {
-  background-color: wheat;
-
   display: grid;
-  grid-auto-rows: 1fr;
-  grid-template-rows: 1fr;
+  grid-auto-rows: min-content;
+  grid-template-rows: min-content;
 
   .feed__topic {
     margin-top: 60px;
-    background-color: yellowgreen;
+    &:last-child {
+      margin-bottom: 60px;
+    }
+    // background-color: yellowgreen;
 
     display: grid;
     grid-template-columns: 30px 1fr 30px;
@@ -17,6 +18,8 @@
       'left articles right';
     .feed__topic-title {
       grid-area: title;
+      font-size: 1.5rem;
+      font-weight: bold;
       margin: auto 0;
     }
     .feed__icon-left {
@@ -32,20 +35,87 @@
     .feed__articles {
       grid-area: articles;
       overflow: hidden;
-
+      padding: 20px 0px;
       display: flex;
       flex-wrap: nowrap;
 
       gap: 30px;
 
       .feed__article {
+        &:hover {
+          box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.25);
+          transition: box-shadow 0.3s ease;
+        }
+
+        //border
+        border-radius: 5px;
+        border: 1px solid rgba($color: #000000, $alpha: 0.25);
+        overflow: hidden;
+
         flex-shrink: 0;
-        width: 300px;
-        height: 300px;
+        width: 400px;
+        height: 312px;
         align-self: center;
         justify-self: center;
-        background-color: sandybrown;
+        background-color: white;
+        position: relative;
+        display: grid;
+        grid-template-rows: min-content 1fr;
+        .article-link {
+          display: block;
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          top: 0;
+        }
+        .feed__article-img {
+          width: 100%;
+          padding-top: 56.25%;
+          position: relative;
+          img {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+        .feed__article-content {
+          margin: 12px;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          .article-title {
+            display: -webkit-box;
+            max-width: 100%;
+            margin: 0 auto;
+            -webkit-line-clamp: 2;
+            /* autoprefixer: off */
+            -webkit-box-orient: vertical;
+            /* autoprefixer: on */
+            overflow: hidden;
+            text-overflow: ellipsis;
+
+            font-weight: bold;
+            height: 2rem;
+          }
+        }
       }
     }
   }
+}
+.sentiment-spicy {
+  color: #ff4976;
+}
+.sentiment-hot {
+  color: #ff67de;
+}
+.sentiment-mild {
+  color: #af83fb;
+}
+.sentiment-soft {
+  color: #33acdf;
+}
+.sentiment-bland {
+  color: #36cd97;
 }

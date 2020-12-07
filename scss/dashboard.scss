@@ -12,7 +12,6 @@ body {
 
   .header {
     grid-column: span 2;
-
     position: fixed;
     height: 60px;
     width: 100%;
@@ -23,8 +22,6 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-
-    position: sticky;
 
     .title {
       font-weight: 500;
