@@ -93,7 +93,32 @@ function compareDB(url, entities, curr_article) {
             break;
           }
         }
-      });
+        });
+        //Set to 0 as a test; Can be changed into the one with highest saliency
+        var choosen_article = similar_articles[Math.floor(Math.random() * similar_articles.length)]
+        
+        // Update the survey page based on the choosen article
+        var ref = firebase.firestore().collection('Articles').doc(choosen_article.doc_id).get()
+        ref.then(function(doc) {
+          if (doc.exists) {
+            console.log(doc.data())
+            console.log(curr_article)
+            var update_articles = {
+                article1: {
+                    id: curr_id,
+                    data: curr_article.data,
+                },
+                article2: {
+                    id: choosen_article.doc_id,
+                    data: doc.data(),
+                }
+            }
+            update_survey(update_articles)
+          } else {
+              // doc.data() will be undefined in this case
+              console.log("No such document!");
+          }
+        });
       //Set to 0 as a test; Can be changed into the one with highest saliency
       var choosen_article =
         similar_articles[Math.floor(Math.random() * similar_articles.length)];
@@ -199,20 +224,20 @@ function update_survey(articles) {
     .getElementById('article2-sentiment')
     .classList.add(art2_sentiment.css_class);
 
-  //Set the survey button
-  document.getElementById('yes-similar-button').onclick = function () {
-    update_similarity_score('YES', articles.article1.id, articles.article2.id);
-  };
-  document.getElementById('no-similar-button').onclick = function () {
-    update_similarity_score('NO', articles.article1.id, articles.article2.id);
-  };
-  document.getElementById('not-related-button').onclick = function () {
-    update_similarity_score(
-      'NOT RELATED',
-      articles.article1.id,
-      articles.article2.id
-    );
-  };
+    //Set the survey button
+    document.getElementById('yes-similar-button').onclick = function() {
+        update_similarity_score("YES", articles.article1.id, articles.article2.id)
+    }
+    document.getElementById('no-similar-button').onclick = function() {
+        update_similarity_score("NO", articles.article1.id, articles.article2.id)
+    }
+    document.getElementById('not-related-button').onclick = function() {
+        update_similarity_score("NOT RELATED", articles.article1.id, articles.article2.id)
+    }
+
+    //Set the image source
+    document.getElementById("article1-img").src = articles.article1.data.img_url
+    document.getElementById("article2-img").src = articles.article2.data.img_url
 }
 
 function update_similarity_score(src, article1, article2) {
