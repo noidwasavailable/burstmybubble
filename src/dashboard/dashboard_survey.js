@@ -101,12 +101,6 @@ function compareDB(url, entities, curr_article) {
                 }
             }
             update_survey(update_articles)
-            // window.localStorage.setItem("sim_artc", doc.data().title)
-            // chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-            //   chrome.tabs.sendMessage(tabs[0].id, {type: "ARTICLE", similar_article: {
-            //     title: doc.data().title, id: choosen_article.doc_id, curr_id: curr_id, curr_art: curr_article.data, new_article: doc.data()}
-            //   });
-            // });
           } else {
               // doc.data() will be undefined in this case
               console.log("No such document!");
@@ -178,6 +172,10 @@ function update_survey(articles) {
     document.getElementById('not-related-button').onclick = function() {
         update_similarity_score("NOT RELATED", articles.article1.id, articles.article2.id)
     }
+
+    //Set the image source
+    document.getElementById("article1-img").src = articles.article1.data.img_url
+    document.getElementById("article2-img").src = articles.article2.data.img_url
 }
 
 function update_similarity_score(src, article1, article2) {
