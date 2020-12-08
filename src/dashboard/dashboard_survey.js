@@ -22,13 +22,25 @@ window.localStorage.setItem(
 
 console.log(window.localStorage.getItem('prev_site'));
 const site_history = JSON.parse(window.localStorage.getItem('history'));
-display_survey();
+document.onreadystatechange = () => {
+  if (document.readyState === 'complete') {
+    display_survey();
+  }
+};
 //--------------------------------------------------
 
 // Send the last site visited to server for entity analysis
 // Assume that the last visited site was held in the variable "prev_site" in localStorage
 function display_survey() {
 //   const prev_site = window.localStorage.getItem('prev_site');
+if (site_history === null) {
+  var articles = {
+    article1: null,
+    article2: null
+  };
+  update_survey(articles)
+  return;
+}
 const prev_site = site_history[site_history.length-1];
   const req_json = {
     url: prev_site,
@@ -140,12 +152,6 @@ function compareDB(url, entities, curr_article) {
             },
           };
           update_survey(update_articles);
-          // window.localStorage.setItem("sim_artc", doc.data().title)
-          // chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-          //   chrome.tabs.sendMessage(tabs[0].id, {type: "ARTICLE", similar_article: {
-          //     title: doc.data().title, id: choosen_article.doc_id, curr_id: curr_id, curr_art: curr_article.data, new_article: doc.data()}
-          //   });
-          // });
         } else {
           // doc.data() will be undefined in this case
           console.log('No such document!');
@@ -194,9 +200,16 @@ async function get_article_id(title, url, entities) {
 }
 
 function update_survey(articles) {
+  console.log(document.getElementById('finding-article'))
     document.getElementById('finding-article').style.display = 'none';
     document.getElementById('article-options').style.display = 'flex';
 
+  if (articles.article1 === null) {
+    document.getElementById('top-half').innerHTML = 
+          "<span class='title'> No recent article found </span><h6> Visit the <span> feed page </span> to explore more articles </h6>";
+      document.getElementById('top-half').style.border = "0px";
+      return
+  }
   // Change the titles
   document.getElementById('article1-title').innerHTML =
     articles.article1.data.title;
