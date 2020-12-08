@@ -53,7 +53,33 @@ function getArticleDiv(data) {
   return html_str;
 }
 
-var articles = [];
+function getTopicDiv(topic) {
+  let html_articles = '';
+  articles.forEach((article) => {
+    if (article.data.category) {
+      const tempArray = article.data.category.name.split('/');
+      const categoryName = tempArray[tempArray.length - 1];
+
+      if (categoryName === topic) {
+        html_articles += getArticleDiv(article.data);
+      }
+    } else {
+      return;
+    }
+  });
+
+  const html_str = `<div class="feed__topic">
+  <div class="feed__topic-title" id="${topic}">Topic: ${topic}</div>
+  <span class="feed__icon-left material-icons"> navigate_before </span>
+  <span class="feed__icon-right material-icons"> navigate_next </span>
+  <div class="feed__articles" id="feedArticlesJs">${html_articles}</div>
+</div>`;
+
+  return html_str;
+}
+
+let articles = [];
+let categoryList = [];
 
 db.collection('Articles')
   //   .where('url', 'in', url_history)
@@ -62,11 +88,31 @@ db.collection('Articles')
     querySnapshot.forEach((doc) => {
       articles.push({ id: doc.id, data: doc.data() });
     });
-    // alert(articles.length);
-    var div = document.getElementById('feedArticlesJs');
-    for (var i = articles.length - 1; i >= 0; i--) {
-      var data = articles[i].data;
-      //   alert(data.title);
-      div.innerHTML += getArticleDiv(data);
-    }
+    return articles;
+  })
+  .then((articles) => {
+    articles.forEach((article) => {
+      if (article.data.category) {
+        const tempArray = article.data.category.name.split('/');
+        const categoryName = tempArray[tempArray.length - 1];
+        if (categoryList.includes(categoryName)) {
+          return;
+        } else {
+          categoryList.push(categoryName);
+        }
+      } else {
+        return;
+      }
+    });
+    return categoryList;
+  })
+  .then((categoryList) => {
+    // console.log(categoryList);
+    const feed = document.getElementById('feedJs');
+    categoryList.forEach((categoryName) => {
+      feed.innerHTML += getTopicDiv(categoryName);
+    });
   });
+// categoryList
+// alert(articles.length);
+// var div = document.getElementById('feedArticlesJs');
