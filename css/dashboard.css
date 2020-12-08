@@ -12,6 +12,20 @@
     flex-direction: column;
     align-items: center;
     justify-content: center; }
+    .home .top-half .ext-loader {
+      border: 8px solid #f3f3f3; /* Light grey */
+      border-top: 8px solid #3498db; /* Blue */
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      animation: spin 2s linear infinite;
+      margin: 2rem auto;
+    }
+    .home .top-half .finding-article {
+      text-align: center; 
+      margin-top: 1rem; 
+      margin-bottom: 2rem
+    }
     .home .top-half .title {
       padding: 20px 0;
       display: flex;
@@ -21,7 +35,7 @@
       font-size: 1em;
       font-weight: 500; }
     .home .top-half .options {
-      display: flex;
+      display: none;
       flex-direction: row;
       align-items: center;
       justify-content: center; }
@@ -305,4 +319,8 @@ body {
     width: 100%;
     background-color: #ffffff; }
 
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
 /*# sourceMappingURL=dashboard.css.map */

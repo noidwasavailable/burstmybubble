@@ -194,11 +194,15 @@ async function get_article_id(title, url, entities) {
 }
 
 function update_survey(articles) {
+    document.getElementById('finding-article').style.display = 'none';
+    document.getElementById('article-options').style.display = 'flex';
+
     if (articles.article2 === null) {
         // If there is no similar article that has been read, include a "There is no recently read articles that is similar" and give recommendation
         
-        document.getElementById('article2').innerHTML = "<span class='title'> No recent article found </span><h6> Visit the <span> feed page </span> to explore more articles </h6>"
-        document.getElementById('article2').style.border = "0px"
+        document.getElementById('article2').innerHTML = 
+            "<span class='title'> No recent article found </span><h6> Visit the <span> feed page </span> to explore more articles </h6>";
+        document.getElementById('article2').style.border = "0px";
     }
   // Change the titles
   document.getElementById('article1-title').innerHTML =
