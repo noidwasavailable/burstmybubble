@@ -22,6 +22,7 @@ var db = firebase.firestore();
 //     current_tab = tab
 // })
 
+//TODO: If this listener is only for the popup modal, please remove.
 //Listen to the message that is sent from the foreground
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   //If the modal button was clicked, open the comparison modal
@@ -84,6 +85,20 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     update_similarity_score(request.src, request.article1, request.article2);
   }
   return true;
+});
+
+chrome.browserAction.onClicked.addListener(() => {
+  console.log('Dashboard please');
+  chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+    var url = tabs[0].url;
+    var history = localStorage.getItem('history');
+    var history = history ? JSON.parse(history) : [];
+    if (!history.includes(url)) {
+      history.push(url);
+    }
+    localStorage.setItem('history', JSON.stringify(history));
+  });
+  chrome.tabs.create({ url: 'src/dashboard/dashboard_home.html' });
 });
 
 function compareDB(url, entities, curr_article) {
