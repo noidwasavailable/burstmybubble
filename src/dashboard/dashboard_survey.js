@@ -63,6 +63,7 @@ const prev_site = site_history[site_history.length-1];
 }
 
 function compareDB(url, entities, curr_article) {
+  console.log(curr_article)
   var curr_id = curr_article.id;
   //Pick 10 entities
   var top_entities = [];
@@ -109,10 +110,20 @@ function compareDB(url, entities, curr_article) {
           }
         }
         });
-        //Set to 0 as a test; Can be changed into the one with highest saliency
+        //Get the pairing that has been done in survey
+        let surveyed_pair = localStorage.getItem('surveyed_pair');
+        //if it does not exist, create an empty one
+        surveyed_pair = surveyed_pair ? JSON.parse(surveyed_pair) : [];
+        var paired_articles = []
+        surveyed_pair.forEach((entry) => {
+          if (entry.includes(curr_id)) {
+            paired_articles.push(entry[1-entry.indexOf(curr_id)])
+          }
+        })
         var choosen_article = null
+        console.log(similar_articles)
         for (var similar_article of similar_articles) {
-            if (site_history.includes(similar_article.doc_url)) {
+            if (site_history.includes(similar_article.doc_url) && !paired_articles.includes(similar_article.doc_id)) {
                 choosen_article = similar_article;
                 break;
             }
@@ -123,7 +134,8 @@ function compareDB(url, entities, curr_article) {
                     id: curr_id,
                     data: curr_article.data,
                 },
-                article2: null
+                article2: null,
+                paired_articles
             }
             update_survey(update_articles)
             return
@@ -139,7 +151,7 @@ function compareDB(url, entities, curr_article) {
         .get();
       ref.then(function (doc) {
         if (doc.exists) {
-          console.log(doc.data());
+          console.log(choosen_article.doc_id);
           console.log(curr_article);
           var update_articles = {
             article1: {
@@ -182,6 +194,7 @@ function classify_sentiment(sent_score) {
 }
 
 async function get_article_id(title, url, entities) {
+  console.log(url)
   var article_id = [];
   db.collection('Articles')
     .where('title', '==', title)
@@ -200,15 +213,26 @@ async function get_article_id(title, url, entities) {
 }
 
 function update_survey(articles) {
-  console.log(document.getElementById('finding-article'))
+  console.log(articles)
     document.getElementById('finding-article').style.display = 'none';
     document.getElementById('article-options').style.display = 'flex';
 
+  
+  let history = localStorage.getItem('history');
+  //if it does not exist, create an empty one
+  history = history ? JSON.parse(history) : [];
   if (articles.article1 === null) {
     document.getElementById('top-half').innerHTML = 
           "<span class='title'> No recent article found </span><h6> Visit the <span> feed page </span> to explore more articles </h6>";
       document.getElementById('top-half').style.border = "0px";
       return
+  }
+  else if (articles.article2 === null && articles.paired_articles.length > 0 && history.length > 1) {
+    //TODO: This condition may still be buggy
+    document.getElementById('top-half').innerHTML = 
+      "<span class='title'> All survey has been answered </span><h6> Visit the <span> feed page </span> to explore more articles </h6>";
+    document.getElementById('top-half').style.border = "0px";
+    return
   }
   // Change the titles
   document.getElementById('article1-title').innerHTML =
@@ -359,4 +383,19 @@ function update_similarity_score(src, article1, article2) {
       });
     }
   });
+  
+  // Update the UI to indicate survey has been answered
+  document.getElementById('top-half').innerHTML = 
+          "<span class='title'> Thank you for answering the survey </span> </h6>";
+  document.getElementById('top-half').style.border = "0px";
+  // Insert the pair to "surveyed_pair" to keep track of pairing that has been surveyed
+  //get history from localStorage
+  let surveyed_pair = localStorage.getItem('surveyed_pair');
+  //if it does not exist, create an empty one
+  surveyed_pair = surveyed_pair ? JSON.parse(surveyed_pair) : [];
+  // Add the pair into the survey_pair
+  var this_pair = [article1, article2]
+  surveyed_pair.push(this_pair)
+  console.log('Setting surveyed_pair');
+  localStorage.setItem('surveyed_pair', JSON.stringify(surveyed_pair));
 }
