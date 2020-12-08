@@ -21,13 +21,15 @@ window.localStorage.setItem(
 );
 
 console.log(window.localStorage.getItem('prev_site'));
+const site_history = JSON.parse(window.localStorage.getItem('history'));
 display_survey();
 //--------------------------------------------------
 
 // Send the last site visited to server for entity analysis
 // Assume that the last visited site was held in the variable "prev_site" in localStorage
 function display_survey() {
-  const prev_site = window.localStorage.getItem('prev_site');
+//   const prev_site = window.localStorage.getItem('prev_site');
+const prev_site = site_history[site_history.length-1];
   const req_json = {
     url: prev_site,
   };
@@ -82,6 +84,7 @@ function compareDB(url, entities, curr_article) {
               }
               var result_doc = {
                 doc_id: doc.id,
+                doc_url: curr_doc.url,
                 saliency: entity.salience,
               };
               similar_articles.push(result_doc);
@@ -95,33 +98,26 @@ function compareDB(url, entities, curr_article) {
         }
         });
         //Set to 0 as a test; Can be changed into the one with highest saliency
-        var choosen_article = similar_articles[Math.floor(Math.random() * similar_articles.length)]
-        
-        // Update the survey page based on the choosen article
-        var ref = firebase.firestore().collection('Articles').doc(choosen_article.doc_id).get()
-        ref.then(function(doc) {
-          if (doc.exists) {
-            console.log(doc.data())
-            console.log(curr_article)
+        var choosen_article = null
+        for (var similar_article of similar_articles) {
+            if (site_history.includes(similar_article.doc_url)) {
+                choosen_article = similar_article;
+                break;
+            }
+        }
+        if (choosen_article === null) {
             var update_articles = {
                 article1: {
                     id: curr_id,
                     data: curr_article.data,
                 },
-                article2: {
-                    id: choosen_article.doc_id,
-                    data: doc.data(),
-                }
+                article2: null
             }
             update_survey(update_articles)
-          } else {
-              // doc.data() will be undefined in this case
-              console.log("No such document!");
-          }
-        });
-      //Set to 0 as a test; Can be changed into the one with highest saliency
-      var choosen_article =
-        similar_articles[Math.floor(Math.random() * similar_articles.length)];
+            return
+            // Alternative: use random ones
+            // var choosen_article = similar_articles[Math.floor(Math.random() * similar_articles.length)]
+        }
 
       // Update the survey page based on the choosen article
       var ref = firebase
@@ -198,6 +194,16 @@ async function get_article_id(title, url, entities) {
 }
 
 function update_survey(articles) {
+    document.getElementById('finding-article').style.display = 'none';
+    document.getElementById('article-options').style.display = 'flex';
+
+    if (articles.article2 === null) {
+        // If there is no similar article that has been read, include a "There is no recently read articles that is similar" and give recommendation
+        
+        document.getElementById('article2').innerHTML = 
+            "<span class='title'> No recent article found </span><h6> Visit the <span> feed page </span> to explore more articles </h6>";
+        document.getElementById('article2').style.border = "0px";
+    }
   // Change the titles
   document.getElementById('article1-title').innerHTML =
     articles.article1.data.title;

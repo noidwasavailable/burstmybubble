@@ -39,7 +39,11 @@
         <!-- Refer to _dashboard_home.scss for the styling -->
         <div class="top-half">
           <div class="title">Here are two articles you've recently read:</div>
-          <div class="options">
+          <div class='finding-article' id='finding-article'>
+            <h2> Finding an article...</h2> 
+            <div class='ext-loader'></div>
+          </div>
+          <div class="options" id='article-options'>
             <!-- Each card represents 1 article, you can give them any ID you want -->
             <div class="card">
               <div class="img-preview">
@@ -62,7 +66,7 @@
                 </div>
               </div>
             </div>
-            <div class="card">
+            <div class="card" id='article2'>
               <div class="img-preview">
                 <img
                   src="https://c.o0bc.com/wp-content/uploads/2020/10/Election_2020_Debate_30924-850x478$large.jpg"
