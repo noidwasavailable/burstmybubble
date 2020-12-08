@@ -112,6 +112,29 @@ db.collection('Articles')
     categoryList.forEach((categoryName) => {
       feed.innerHTML += getTopicDiv(categoryName);
     });
+    return feed;
+  })
+  .then((feed) => {
+    const topicList = feed.querySelectorAll('.feed__topic');
+
+    topicList.forEach((topic) => {
+      const articlesDiv = topic.querySelector('.feed__articles');
+      const leftBtn = topic.querySelector('.feed__icon-left');
+      const rightBtn = topic.querySelector('.feed__icon-right');
+
+      leftBtn.addEventListener('click', function handleLeftBtn() {
+        articlesDiv.scrollBy({
+          left: -990,
+          behavior: 'smooth',
+        });
+      });
+      rightBtn.addEventListener('click', function handleRightBtn() {
+        articlesDiv.scrollBy({
+          left: +990,
+          behavior: 'smooth',
+        });
+      });
+    });
   });
 // categoryList
 // alert(articles.length);
