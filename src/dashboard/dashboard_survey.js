@@ -228,6 +228,7 @@ async function get_article_id(title, url, entities) {
 function update_survey(articles) {
   console.log(document.getElementById('finding-article'));
   document.getElementById('finding-article').style.display = 'none';
+  document.getElementById('survey-buttons').style.display = 'block';
   document.getElementById('article-options').style.display = 'flex';
 
   
