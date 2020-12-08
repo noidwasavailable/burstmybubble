@@ -82,14 +82,15 @@ let articles = [];
 let categoryList = [];
 
 db.collection('Articles')
-  //   .where('url', 'in', url_history)
   .get()
+  //get collection Snapshot
   .then(function (querySnapshot) {
     querySnapshot.forEach((doc) => {
       articles.push({ id: doc.id, data: doc.data() });
     });
     return articles;
   })
+  //create categoryList
   .then((articles) => {
     articles.forEach((article) => {
       if (article.data.category) {
@@ -106,14 +107,15 @@ db.collection('Articles')
     });
     return categoryList;
   })
+  //apply on HTML
   .then((categoryList) => {
-    // console.log(categoryList);
     const feed = document.getElementById('feedJs');
     categoryList.forEach((categoryName) => {
       feed.innerHTML += getTopicDiv(categoryName);
     });
     return feed;
   })
+  //addEventListner
   .then((feed) => {
     const topicList = feed.querySelectorAll('.feed__topic');
 
@@ -136,6 +138,3 @@ db.collection('Articles')
       });
     });
   });
-// categoryList
-// alert(articles.length);
-// var div = document.getElementById('feedArticlesJs');
