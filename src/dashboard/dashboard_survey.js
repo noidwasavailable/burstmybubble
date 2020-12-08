@@ -197,39 +197,52 @@ function update_survey(articles) {
     document.getElementById('finding-article').style.display = 'none';
     document.getElementById('article-options').style.display = 'flex';
 
-    if (articles.article2 === null) {
-        // If there is no similar article that has been read, include a "There is no recently read articles that is similar" and give recommendation
-        
-        document.getElementById('article2').innerHTML = 
-            "<span class='title'> No recent article found </span><h6> Visit the <span> feed page </span> to explore more articles </h6>";
-        document.getElementById('article2').style.border = "0px";
-    }
   // Change the titles
   document.getElementById('article1-title').innerHTML =
     articles.article1.data.title;
-  document.getElementById('article2-title').innerHTML =
-    articles.article2.data.title;
   // Change the categories
   document.getElementById('article1-cat').innerHTML = last_category(
     articles.article1.data.category.name
   );
-  document.getElementById('article2-cat').innerHTML = last_category(
-    articles.article2.data.category.name
-  );
   // Change the sentiment
   var art1_sentiment = classify_sentiment(articles.article1.data.sentiment);
-  var art2_sentiment = classify_sentiment(articles.article2.data.sentiment);
   document.getElementById('article1-sentiment').innerHTML =
     art1_sentiment.sentiment;
-  document.getElementById('article2-sentiment').innerHTML =
-    art2_sentiment.sentiment;
   document
     .getElementById('article1-sentiment')
     .classList.add(art1_sentiment.css_class);
-  document
+
+    //Set the image source
+    document.getElementById("article1-img").src = articles.article1.data.img_url
+
+    
+    if (articles.article2 === null) {
+      // If there is no similar article that has been read, include a "There is no recently read articles that is similar" and give recommendation
+      
+      document.getElementById('article2').innerHTML = 
+          "<span class='title'> No recent article found </span><h6> Visit the <span> feed page </span> to explore more articles </h6>";
+      document.getElementById('article2').style.border = "0px";
+      return
+    }
+    
+    // Update the second article card if there is a return value
+    // Change the category
+    document.getElementById('article2-cat').innerHTML = last_category(
+      articles.article2.data.category.name
+    );
+
+    // Change the sentiment
+    var art2_sentiment = classify_sentiment(articles.article2.data.sentiment);
+    document.getElementById('article2-sentiment').innerHTML =
+      art2_sentiment.sentiment;
+    document
     .getElementById('article2-sentiment')
     .classList.add(art2_sentiment.css_class);
 
+    // Change the title
+    document.getElementById('article2-title').innerHTML =
+      articles.article2.data.title;
+      
     //Set the survey button
     document.getElementById('yes-similar-button').onclick = function() {
         update_similarity_score("YES", articles.article1.id, articles.article2.id)
@@ -241,8 +254,7 @@ function update_survey(articles) {
         update_similarity_score("NOT RELATED", articles.article1.id, articles.article2.id)
     }
 
-    //Set the image source
-    document.getElementById("article1-img").src = articles.article1.data.img_url
+    // Change the article image
     document.getElementById("article2-img").src = articles.article2.data.img_url
 }
 
