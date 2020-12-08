@@ -32,7 +32,6 @@ function classify_sentiment(sent_score) {
 
 function getArticleDiv(data) {
   var title = data.title;
-  var desc = data.content.substring(0, 200) + '...';
   var article_url = data.url;
   var img_url = data.img_url;
   var tempArray = data.category.name.split('/');

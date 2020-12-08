@@ -14,48 +14,68 @@ firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 var db = firebase.firestore();
 
+function classify_sentiment(sent_score) {
+  const magnitude = sent_score.magnitude;
+  const score = sent_score.score;
+  if (magnitude > 40) {
+    return { sentiment: 'Spicy', css_class: 'sentiment-spicy' };
+  } else if (magnitude > 25) {
+    return { sentiment: 'Hot', css_class: 'sentiment-hot' };
+  } else if (magnitude > 15) {
+    return { sentiment: 'Mild', css_class: 'sentiment-mild' };
+  } else if (magnitude > 5) {
+    return { sentiment: 'Soft', css_class: 'sentiment-soft' };
+  } else {
+    return { sentiment: 'Bland', css_class: 'sentiment-bland' };
+  }
+}
+
 function getArticleDiv(data) {
   var title = data.title;
   var desc = data.content.substring(0, 200) + '...';
-  var read_date = '--/--/--';
-  var read_time = '00:00';
+  var article_url = data.url;
+  var title = data.title;
   var article_url = data.url;
   var img_url = data.img_url;
+  var tempArray = data.category.name.split('/');
+  var categoryName = tempArray[tempArray.length - 1];
+  var sentiment = classify_sentiment(data.sentiment);
 
-  var html_str =
-    '<div class="article-card">\
-    <div class="article-img">\
-      <img src="' +
-    img_url +
-    '" alt="article" />\
-    </div>\
-    <div class="article-info">\
-      <div class="article-title">\
-        <h2>' +
-    title +
-    '</h2>\
-      </div>\
-      <div class="read-date">\
-        <span>' +
-    read_time +
-    '</span>\
-        <span>' +
-    read_date +
-    '</span>\
-      </div>\
-      <div class="article-desc">\
-        <p>' +
-    desc +
-    '</p>\
-      </div>\
-      </div> <div>\
-      <div class="article-full-read">\
-        <a href="' +
-    article_url +
-    '">Full article</a>\
-      </div>\
-    </div>\
-  </div>';
+  // var desc = data.content.substring(0, 200) + '...';
+  // var read_date = '--/--/--';
+  // var read_time = '00:00';
+
+  var html_str = `<div class="feed__article">
+    <div class="feed__article-img">
+        <img src="${img_url}" alt="article" />
+    </div>
+    <div class="feed__article-content">
+        <div class="article-title">${title}</div>
+        <div class = "article-info">${categoryName} | <span class="${sentiment.css_class}">${sentiment.sentiment}</span></div>
+    </div>
+    <a class="article-link" href = "${article_url}"></a>
+</div>`;
+
+  return html_str;
+}
+
+function getHistoryDiv() {
+  let html_articles = '';
+  articles.forEach((article) => {
+    if (article.data.category) {
+      html_articles += getArticleDiv(article.data);
+    } else {
+      return;
+    }
+  });
+
+  const html_str = `<div class="feed__topic">
+  <div class="feed__topic-title">History</div>
+  <span class="feed__icon-left material-icons"> navigate_before </span>
+  <span class="feed__icon-right material-icons"> navigate_next </span>
+  <div class="feed__articles" id="feedArticlesJs">${html_articles}</div>
+</div>`;
+
   return html_str;
 }
 
@@ -70,11 +90,10 @@ db.collection('Articles')
     querySnapshot.forEach((doc) => {
       articles.push({ id: doc.id, data: doc.data() });
     });
-    // alert(articles.length);
-    var div = document.getElementById('history-panel');
-    for (var i = articles.length - 1; i >= 0; i--) {
-      var data = articles[i].data;
-      //   alert(data.title);
-      div.innerHTML += getArticleDiv(data);
-    }
+    console.log(articles);
+    return articles;
+  })
+  .then((articles) => {
+    const feed = document.getElementById('historyJs');
+    feed.innerHTML += getHistoryDiv();
   });
