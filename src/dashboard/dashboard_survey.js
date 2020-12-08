@@ -66,7 +66,7 @@ function compareDB(url, entities, curr_article) {
   var curr_id = curr_article.id;
   //Pick 10 entities
   var top_entities = [];
-  console.log(entities);
+
   for (var idx in entities) {
     var entity = entities[idx];
     if (entity.salience > 0.01 && top_entities.length < 10) {
@@ -167,7 +167,6 @@ function last_category(categoryName) {
 
 function classify_sentiment(sent_score) {
   const magnitude = sent_score.magnitude;
-  const score = sent_score.score;
   if (magnitude > 40) {
     return { sentiment: 'Spicy', css_class: 'sentiment-spicy' };
   } else if (magnitude > 25) {
@@ -190,7 +189,7 @@ async function get_article_id(title, url, entities) {
       querySnapshot.forEach((doc) => {
         article_id.push({ id: doc.id, data: doc.data() });
       });
-      console.log(article_id);
+
       if (article_id.length > 0) {
         compareDB(url, entities, article_id[0]);
       } else {
@@ -275,7 +274,6 @@ function update_survey(articles) {
 }
 
 function update_similarity_score(src, article1, article2) {
-  console.log('article 2: ' + article2);
   var added_score = 0;
   if (src === 'YES') {
     added_score = 1;
@@ -285,7 +283,6 @@ function update_similarity_score(src, article1, article2) {
   var art1_ref = db.collection('Articles').doc(article1);
   art1_ref.get().then((doc) => {
     var curr_data = doc.data().scores;
-    console.log(typeof curr_data);
     if (curr_data === undefined) {
       var new_score = {
         score: added_score,
@@ -293,12 +290,11 @@ function update_similarity_score(src, article1, article2) {
       };
       var new_data = {};
       new_data[article2] = new_score;
-      console.log(new_data);
+
       art1_ref.update({
         scores: new_data,
       });
     } else if (article2 in curr_data) {
-      console.log('Article found');
       var curr_score = curr_data[article2];
       var new_score = {
         score:
@@ -307,7 +303,7 @@ function update_similarity_score(src, article1, article2) {
         num_survey: curr_score.num_survey + 1,
       };
       curr_data[article2] = new_score;
-      console.log(curr_data);
+
       art1_ref.update({
         scores: curr_data,
       });
@@ -326,7 +322,7 @@ function update_similarity_score(src, article1, article2) {
   var art2_ref = db.collection('Articles').doc(article2);
   art2_ref.get().then((doc) => {
     var curr_data = doc.data().scores;
-    //   console.log(curr_data)
+
     if (curr_data === undefined) {
       var new_score = {
         score: added_score,
@@ -338,7 +334,6 @@ function update_similarity_score(src, article1, article2) {
         scores: new_data,
       });
     } else if (article1 in curr_data) {
-      // console.log("Article found")
       var curr_score = curr_data[article1];
       var new_score = {
         score:
