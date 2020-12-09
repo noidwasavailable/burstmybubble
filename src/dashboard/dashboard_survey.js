@@ -21,10 +21,12 @@ window.localStorage.setItem(
 );
 
 console.log(window.localStorage.getItem('prev_site'));
-const site_history = JSON.parse(window.localStorage.getItem('history'));
+let site_history = window.localStorage.getItem('history');
+site_history = site_history? JSON.parse(site_history): [];
 document.onreadystatechange = () => {
   if (document.readyState === 'complete') {
     display_survey();
+    detect_similar_topics();
   }
 };
 //--------------------------------------------------
@@ -53,13 +55,75 @@ function display_survey() {
     method: 'POST',
   };
   console.log('Start analyzing...');
-  fetch('http://15.164.214.36/analyze-entity', param_det)
-    .then((data) => {
-      return data.json();
-    })
-    .then((res) => {
-      get_article_id(res.title, prev_site, res.entities.entities);
+  // fetch('http://15.164.214.36/analyze-entity', param_det)
+  //   .then((data) => {
+  //     return data.json();
+  //   })
+  //   .then((res) => {
+  //     get_article_id(res.title, prev_site, res.entities.entities);
+  //   });
+
+  //TRIAL: get the entity from firebase instead of analyzing it in the server
+  db.collection('Articles').where('url', '==', prev_site)
+  .get().then(function(querySnapshot) {
+    var article = []
+    querySnapshot.forEach((doc) => {
+      article.push({title: doc.data().title, entities: doc.data().entities});
     });
+
+    if (article.length > 0) {
+      get_article_id(article[0].title, prev_site, article[0].entities)
+    } else {
+      console.log("Not found")
+      return
+    }
+  })
+}
+
+// Detect whether 5 articles of the similar topic has been read
+async function detect_similar_topics() {
+  if (site_history.length > 4) {
+    // Get chain checking 
+    const last_five_article = site_history.slice(-5)
+    var similar_topics = true
+    var ids = []
+    var similar_score = []
+    // Get id for all site_history
+    db.collection('Articles')
+    .get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        if (last_five_article.includes(doc.data().url)) {
+          ids.splice(last_five_article.indexOf(doc.data().url), 0, doc.id);
+        }
+      })
+      return {ids, querySnapshot}
+    }).then( res => 
+     { console.log(res.ids.slice(-5))
+      res.querySnapshot.forEach((doc) => {
+        if (res.ids.slice(0,4).includes(doc.id)) {
+          const idx = res.ids.slice(0,4).indexOf(doc.id)
+          // Get the score between this article and the next article
+          console.log(doc.id)
+          console.log(res.ids[idx+1])
+          similar_score[idx] = doc.data().scores[res.ids[idx+1]].score
+        }
+      })
+      // If all similarity score is above 0.8, then send warning
+      if (similar_score.every((score) => score > 0.8)) {
+        document.getElementById("various-topic").style.border = "1px solid red";
+        document.getElementById("various-topic-text").style.textAlign = "left"
+        document.getElementById("various-topic-text").innerHTML = 
+          "You have been reading 5 articles from the same topic in succession. Click<span id='click-here'> here </span>to get recommendation on different articles";
+        document.getElementById("click-here").style.fontWeight = "bold"
+        document.getElementById("click-here").style.cursor = "pointer"
+        document.getElementById("click-here").onclick = function() {
+          window.open('./dashboard_feed.html', '_self');
+        }
+      }
+      console.log()
+    })
+  }
 }
 
 function compareDB(url, entities, curr_article) {
@@ -77,6 +141,7 @@ function compareDB(url, entities, curr_article) {
     }
   }
 
+  console.log(top_entities)
   // Get articles with similar entities
   db.collection('Articles')
     .get()
@@ -213,7 +278,7 @@ async function get_article_id(title, url, entities) {
   console.log(url);
   var article_id = [];
   db.collection('Articles')
-    .where('title', '==', title)
+    .where('url', '==', url)
     .get()
     .then(function (querySnapshot) {
       querySnapshot.forEach((doc) => {
@@ -221,8 +286,14 @@ async function get_article_id(title, url, entities) {
       });
 
       if (article_id.length > 0) {
+        if (return_val) {
+          return article_id[0]
+        }
         compareDB(url, entities, article_id[0]);
       } else {
+        if (return_val) {
+          return null
+        }
         compareDB(url, entities, 'No article found');
       }
     });
@@ -231,7 +302,6 @@ async function get_article_id(title, url, entities) {
 function update_survey(articles) {
   console.log(document.getElementById('finding-article'));
   document.getElementById('finding-article').style.display = 'none';
-  document.getElementById('survey-buttons').style.display = 'block';
   document.getElementById('article-options').style.display = 'flex';
 
   let history = localStorage.getItem('history');
@@ -279,6 +349,8 @@ function update_survey(articles) {
     document.getElementById('article2').style.border = '0px';
     return;
   }
+  
+  document.getElementById('survey-buttons').style.display = 'block';
 
   // Update the second article card if there is a return value
   // Change the category
