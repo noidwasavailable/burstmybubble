@@ -85,19 +85,30 @@ async function detect_similar_topics() {
   if (site_history.length > 4) {
     // Get chain checking 
     const last_five_article = site_history.slice(-5)
-    var similar_topics = true
+    var topics = []
     var ids = []
     var similar_score = []
+    var sentiments = []
     // Get id for all site_history
     db.collection('Articles')
     .get()
     .then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
         if (last_five_article.includes(doc.data().url)) {
+          // For the sentiments
+          sentiments.push(classify_sentiment(doc.data().sentiment).sentiment)
+
+          // For the opinion
           ids.splice(last_five_article.indexOf(doc.data().url), 0, doc.id);
+
+          // For the topic
+          const tempArray = doc.data().category.name.split('/');
+          const categoryName = tempArray[tempArray.length - 1];
+          topics.push(categoryName)
         }
       })
-      return {ids, querySnapshot}
+      console.log(topics)
+      return {ids, querySnapshot, sentiments, topics}
     }).then( res => 
      { console.log(res.ids.slice(-5))
       res.querySnapshot.forEach((doc) => {
@@ -109,8 +120,9 @@ async function detect_similar_topics() {
           similar_score[idx] = doc.data().scores[res.ids[idx+1]].score
         }
       })
-      // If all similarity score is above 0.8, then send warning
-      if (similar_score.every((score) => score > 0.8)) {
+
+      // If all the topics are the same, then send warning
+      if (res.topics.every(entry => entry === res.topics[0])) {
         document.getElementById("various-topic").style.border = "1px solid red";
         document.getElementById("various-topic-text").style.textAlign = "left"
         document.getElementById("various-topic-text").innerHTML = 
@@ -121,7 +133,32 @@ async function detect_similar_topics() {
           window.open('./dashboard_feed.html', '_self');
         }
       }
-      console.log()
+
+      // If all similarity score is above 0.8, then send warning
+      if (similar_score.every((score) => score > 0.8)) {
+        
+        document.getElementById("various-opinion").style.border = "1px solid red";
+        document.getElementById("various-opinion-text").style.textAlign = "left"
+        document.getElementById("various-opinion-text").innerHTML = 
+          "You have been reading 5 articles with similar opinion based on our survey. Please try to find other articles with opposing bias by exploring our feed";
+      }
+
+      //If there are more than 3 spicy+hot article in last 5 articles, send warning
+      var sensationalize = 0
+      res.sentiments.forEach((sent) => {
+        if (sent === "Spicy" || sent === "Hot") {sensationalize++}
+      })
+      if (sensationalize >= 3) {
+        document.getElementById("various-sentiment").style.border = "1px solid red";
+        document.getElementById("various-sentiment-text").style.textAlign = "left"
+        document.getElementById("various-sentiment-text").innerHTML = 
+          "The last " + sensationalize + " of your articles are labeled as Spicy/Hot. Please proceed with articles with less sensationalized sentiment";
+        // document.getElementById("click-here").style.fontWeight = "bold"
+        // document.getElementById("click-here").style.cursor = "pointer"
+        // document.getElementById("click-here").onclick = function() {
+        //   window.open('./dashboard_feed.html', '_self');
+        // }
+      }
     })
   }
 }
@@ -261,11 +298,11 @@ function last_category(categoryName) {
 
 function classify_sentiment(sent_score) {
   const magnitude = sent_score.magnitude;
-  if (magnitude > 40) {
+  if (magnitude > 30) {
     return { sentiment: 'Spicy', css_class: 'sentiment-spicy' };
-  } else if (magnitude > 25) {
+  } else if (magnitude > 20) {
     return { sentiment: 'Hot', css_class: 'sentiment-hot' };
-  } else if (magnitude > 15) {
+  } else if (magnitude > 10) {
     return { sentiment: 'Mild', css_class: 'sentiment-mild' };
   } else if (magnitude > 5) {
     return { sentiment: 'Soft', css_class: 'sentiment-soft' };
