@@ -286,14 +286,8 @@ async function get_article_id(title, url, entities) {
       });
 
       if (article_id.length > 0) {
-        if (return_val) {
-          return article_id[0]
-        }
         compareDB(url, entities, article_id[0]);
       } else {
-        if (return_val) {
-          return null
-        }
         compareDB(url, entities, 'No article found');
       }
     });
