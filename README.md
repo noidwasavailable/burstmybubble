@@ -2,8 +2,15 @@
 
 An extension to help burst filter bubble when reading various article
 
-## Info
+## How to Use
 
-Server IP: 15.164.214.36 -> Prone to change
-Guardian titled: "Leaked White House report warns current Covid-19 mitigation efforts 'inadequate'" didn't have the sentiment yet
-- https://www.theatlantic.com/technology/archive/2020/03/what-really-doomed-americas-coronavirus-response/608596/
+- Download the repository
+- In a `chrome://extensions` tab, check the "Developer Mode" to enable unpacked extensions
+- Click"Load unpacked extension..." and choose the repository to load up the extension
+- To open the extension, click the extension button when opening the article that want to be analyzed
+- Due to time limitation, this only on few articles. Here are some of the website that you can try this on
+  - https://www.vox.com/recode/21546119/trump-conspiracy-theories-election-2020-coronavirus-voting-vote-by-mail
+  - https://apnews.com/article/donald-trump-fires-christopher-krebs-dhs-5e63923e0c11c9155eb5af2362d78548
+  - https://www.bbc.com/news/world-us-canada-54994212
+  - https://www.foxnews.com/politics/2020-election-secure-history-federal-security
+  - https://www.washingtonpost.com/world/2020/11/03/world-reaction-us-election-2020/
